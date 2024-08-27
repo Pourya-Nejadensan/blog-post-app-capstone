@@ -16,9 +16,9 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 22
