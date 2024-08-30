@@ -1,6 +1,5 @@
 package org.blog.post.app.backend.service;
 
-import org.blog.post.app.backend.dto.PostDTO;
 import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.repository.PostRepository;
 import org.blog.post.app.backend.service.impl.PostServiceImpl;
@@ -22,7 +21,7 @@ class PostServiceImplTest {
         when(postRepository.findAll()).thenReturn(List.of());
 
         // when
-        List<PostDTO> posts = postServiceImpl.getAllPosts();
+        List<Post> posts = postServiceImpl.getAllPosts();
 
         // then
         assertTrue(posts.isEmpty());
@@ -37,7 +36,7 @@ class PostServiceImplTest {
         ));
 
         // when
-        List<PostDTO> posts = postServiceImpl.getAllPosts();
+        List<Post> posts = postServiceImpl.getAllPosts();
 
         // then
         assertFalse(posts.isEmpty());
@@ -53,22 +52,22 @@ class PostServiceImplTest {
         when(postRepository.findAll()).thenReturn(mockPosts);
 
         // when
-        List<PostDTO> posts = postServiceImpl.getAllPosts();
+        List<Post> posts = postServiceImpl.getAllPosts();
 
         // then
         verify(postRepository).findAll();
         assertEquals(mockPosts.size(), posts.size());
         for (int i = 0; i < mockPosts.size(); i++) {
             Post mockPost = mockPosts.get(i);
-            PostDTO postDTO = posts.get(i);
-            assertEquals(mockPost.id(), postDTO.id());
-            assertEquals(mockPost.title(), postDTO.title());
-            assertEquals(mockPost.content(), postDTO.content());
-            assertEquals(mockPost.author(), postDTO.author());
-            assertEquals(mockPost.date(), postDTO.date());
-            assertEquals(mockPost.time(), postDTO.time());
-            assertEquals(mockPost.likes(), postDTO.likes());
-            assertEquals(mockPost.dislikes(), postDTO.dislikes());
+            Post post = posts.get(i);
+            assertEquals(mockPost.id(), post.id());
+            assertEquals(mockPost.title(), post.title());
+            assertEquals(mockPost.content(), post.content());
+            assertEquals(mockPost.author(), post.author());
+            assertEquals(mockPost.date(), post.date());
+            assertEquals(mockPost.time(), post.time());
+            assertEquals(mockPost.likes(), post.likes());
+            assertEquals(mockPost.dislikes(), post.dislikes());
         }
     }
 }
