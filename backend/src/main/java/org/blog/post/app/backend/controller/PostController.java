@@ -1,11 +1,9 @@
 package org.blog.post.app.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.blog.post.app.backend.dto.PostDTO;
+import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.service.impl.PostServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class PostController {
     private final PostServiceImpl postServiceImpl;
 
     @GetMapping("/all")
-    public List<PostDTO> getAllPosts() {
+    public List<Post> getAllPosts() {
         return postServiceImpl.getAllPosts();
     }
 }
