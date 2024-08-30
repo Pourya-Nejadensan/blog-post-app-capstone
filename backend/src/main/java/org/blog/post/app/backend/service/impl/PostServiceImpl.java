@@ -15,6 +15,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final IdService idService;
 
     @Override
     public List<Post> getAllPosts() {
@@ -34,7 +35,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post createPost(PostDTO postDTO) {
         Post newPost = new Post(
-                IdService.generateId(),
+                idService.generateId(),
                 postDTO.title(),
                 postDTO.content(),
                 postDTO.author(),

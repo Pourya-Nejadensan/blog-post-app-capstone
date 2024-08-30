@@ -1,14 +1,13 @@
 package org.blog.post.app.backend.util;
 
-import static java.util.UUID.randomUUID;
+import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
+@Service
 public class IdService {
 
-    private IdService() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    public static String generateId() {
-        return randomUUID().toString();
+    public String generateId() {
+        return UUID.randomUUID().toString();
     }
 }
