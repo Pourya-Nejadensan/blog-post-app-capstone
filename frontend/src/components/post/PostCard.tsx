@@ -1,13 +1,13 @@
-import { PostDTO } from '../../models/PostDTO';
+import { Post } from '../../models/Post.tsx';
 
-export default function PostCard (postDto: Readonly<PostDTO>) {
+export default function PostCard (post: Readonly<Post>) {
     return (
-        <div key={postDto.id}>
-            <h2>{postDto.title}</h2>
-            <p>{postDto.content}</p>
-            <p><strong>Author:</strong> {postDto.author}</p>
-            <p><strong>Date:</strong> {postDto.date} <strong>Time:</strong> {postDto.time}</p>
-            <p><strong>Likes:</strong> {postDto.likes} <strong>Dislikes:</strong> {postDto.dislikes}</p>
+        <div key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.content}</p>
+            <p><strong>Author:</strong> {post.author}</p>
+            <p><strong>Date:</strong> {post.date} <strong>Time:</strong> {post.time}</p>
+            <p><strong>Likes:</strong> {post.likes} <strong>Dislikes:</strong> {post.dislikes}</p>
         </div>
     );
 };
