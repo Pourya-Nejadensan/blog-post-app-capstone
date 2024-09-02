@@ -1,9 +1,11 @@
 package org.blog.post.app.backend.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.blog.post.app.backend.dto.PostDTO;
 import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.repository.PostRepository;
 import org.blog.post.app.backend.service.PostService;
+import org.blog.post.app.backend.util.IdService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final IdService idService;
 
     @Override
     public List<Post> getAllPosts() {
@@ -27,5 +30,20 @@ public class PostServiceImpl implements PostService {
                         post.likes(),
                         post.dislikes()))
                 .toList();
+    }
+
+    @Override
+    public Post createPost(PostDTO postDTO) {
+        Post newPost = new Post(
+                idService.generateId(),
+                postDTO.title(),
+                postDTO.content(),
+                postDTO.author(),
+                postDTO.date(),
+                postDTO.time(),
+                postDTO.likes(),
+                postDTO.dislikes()
+        );
+        return postRepository.save(newPost);
     }
 }

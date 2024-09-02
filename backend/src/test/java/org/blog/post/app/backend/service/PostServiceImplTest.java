@@ -1,8 +1,10 @@
 package org.blog.post.app.backend.service;
 
+import org.blog.post.app.backend.dto.PostDTO;
 import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.repository.PostRepository;
 import org.blog.post.app.backend.service.impl.PostServiceImpl;
+import org.blog.post.app.backend.util.IdService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,7 +15,8 @@ import static org.mockito.Mockito.*;
 class PostServiceImplTest {
 
     private final PostRepository postRepository = mock(PostRepository.class);
-    private final PostServiceImpl postServiceImpl = new PostServiceImpl(postRepository);
+    private final IdService idService = mock(IdService.class);
+    private final PostServiceImpl postServiceImpl = new PostServiceImpl(postRepository, idService);
 
     @Test
     void getAllPostsTest_whenPostsAreEmpty_thenReturnTrue() {
@@ -31,8 +34,27 @@ class PostServiceImplTest {
     void getAllPostsTest_whenPostsAreNotEmpty_thenReturnTrue() {
         // given
         when(postRepository.findAll()).thenReturn(List.of(
-                new Post("1", "Title1", "Content1", "Author1", "2023-10-01", "10:00", 10, 1),
-                new Post("2", "Title2", "Content2", "Author2", "2023-10-02", "11:00", 20, 2)
+                new Post(
+                        "1",
+                        "Title1",
+                        "Content1",
+                        "Author1",
+                        "2023-10-01",
+                        "10:00",
+                        10,
+                        1
+                ),
+
+                new Post(
+                        "2",
+                        "Title2",
+                        "Content2",
+                        "Author2",
+                        "2023-10-02",
+                        "11:00",
+                        20,
+                        2
+                )
         ));
 
         // when
@@ -40,15 +62,38 @@ class PostServiceImplTest {
 
         // then
         assertFalse(posts.isEmpty());
+        assertEquals(2, posts.size());
+        assertEquals("Title1", posts.get(0).title());
+        assertEquals("Title2", posts.get(1).title());
     }
 
     @Test
     void getAllPostsTest_whenPostsAreReturned_thenReturnSamePosts() {
         // given
         List<Post> mockPosts = List.of(
-                new Post("1", "Title1", "Content1", "Author1", "2023-10-01", "10:00", 10, 1),
-                new Post("2", "Title2", "Content2", "Author2", "2023-10-02", "11:00", 20, 2)
+                new Post(
+                        "1",
+                        "Title1",
+                        "Content1",
+                        "Author1",
+                        "2023-10-01",
+                        "10:00",
+                        10,
+                        1
+                ),
+
+                new Post(
+                        "2",
+                        "Title2",
+                        "Content2",
+                        "Author2",
+                        "2023-10-02",
+                        "11:00",
+                        20,
+                        2
+                )
         );
+
         when(postRepository.findAll()).thenReturn(mockPosts);
 
         // when
@@ -56,18 +101,42 @@ class PostServiceImplTest {
 
         // then
         verify(postRepository).findAll();
-        assertEquals(mockPosts.size(), posts.size());
-        for (int i = 0; i < mockPosts.size(); i++) {
-            Post mockPost = mockPosts.get(i);
-            Post post = posts.get(i);
-            assertEquals(mockPost.id(), post.id());
-            assertEquals(mockPost.title(), post.title());
-            assertEquals(mockPost.content(), post.content());
-            assertEquals(mockPost.author(), post.author());
-            assertEquals(mockPost.date(), post.date());
-            assertEquals(mockPost.time(), post.time());
-            assertEquals(mockPost.likes(), post.likes());
-            assertEquals(mockPost.dislikes(), post.dislikes());
-        }
+        assertEquals(mockPosts, posts);
+        assertEquals(2, posts.size());
+        assertEquals("Title1", posts.get(0).title());
+        assertEquals("Title2", posts.get(1).title());
+    }
+
+    @Test
+    void createPostTest_whenPostIsCreated_thenReturnCreatedPost() {
+        // given
+        Post expectedPost = new Post(
+                "1",
+                "Title1",
+                "Content1",
+                "Author1",
+                "2023-10-01",
+                "10:00",
+                10,
+                1);
+        when(postRepository.save(expectedPost)).thenReturn(expectedPost);
+        when(idService.generateId()).thenReturn(expectedPost.id());
+
+        PostDTO postDTO = new PostDTO(
+                expectedPost.title(),
+                expectedPost.content(),
+                expectedPost.author(),
+                expectedPost.date(),
+                expectedPost.time(),
+                expectedPost.likes(),
+                expectedPost.dislikes());
+
+        // when
+        Post createdPost = postServiceImpl.createPost(postDTO);
+
+        // then
+        verify(postRepository).save(expectedPost);
+        verify(idService).generateId();
+        assertEquals(expectedPost, createdPost);
     }
 }
