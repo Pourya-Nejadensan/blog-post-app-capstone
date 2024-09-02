@@ -8,4 +8,5 @@ import java.util.List;
 public interface PostService {
     List<Post> getAllPosts();
     Post createPost(PostDTO postDTO);
+    void deletePostById(String id);
 }

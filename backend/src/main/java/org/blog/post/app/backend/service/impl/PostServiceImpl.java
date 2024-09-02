@@ -2,6 +2,7 @@ package org.blog.post.app.backend.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.blog.post.app.backend.dto.PostDTO;
+import org.blog.post.app.backend.exception.ResourceNotFoundException;
 import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.repository.PostRepository;
 import org.blog.post.app.backend.service.PostService;
@@ -45,5 +46,12 @@ public class PostServiceImpl implements PostService {
                 postDTO.dislikes()
         );
         return postRepository.save(newPost);
+    }
+
+    @Override
+    public void deletePostById(String id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        postRepository.delete(post);
     }
 }
