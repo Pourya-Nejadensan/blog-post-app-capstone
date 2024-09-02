@@ -82,4 +82,34 @@ class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.likes").value(0))
                 .andExpect(jsonPath("$.dislikes").value(0));
     }
+
+    @Test
+    @DirtiesContext
+    void deletePostById() throws Exception {
+        // given
+        postRepository.save(
+                new Post(
+                        "1",
+                        "Title1",
+                        "Content1",
+                        "Author1",
+                        "2023-10-01",
+                        "10:00",
+                        10,
+                        1
+                ));
+
+        // when
+        mockMvc.perform(delete("/api/post/delete/{id}", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(content().string("Post deleted successfully"));
+
+        // Verify the post is deleted
+        mockMvc.perform(get("/api/post/all"))
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
 }
