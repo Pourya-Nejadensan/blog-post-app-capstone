@@ -112,4 +112,47 @@ class PostControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
+
+    @Test
+    @DirtiesContext
+    void updatePostById() throws Exception {
+        // given
+        postRepository.save(
+                new Post(
+                        "1",
+                        "Title1",
+                        "Content1",
+                        "Author1",
+                        "2023-10-01",
+                        "10:00",
+                        10,
+                        1
+                ));
+
+        String postDTOJson = """
+                {
+                    "title": "My First Post",
+                    "content": "This is the content of my first post.",
+                    "author": "Pourya Nejadensan",
+                    "date": "2023-10-01",
+                    "time": "12:00:00",
+                    "likes": 0,
+                    "dislikes": 0
+                }
+                """;
+
+        // when
+        mockMvc.perform(put("/api/post/update/{id}", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(postDTOJson))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("My First Post"))
+                .andExpect(jsonPath("$.content").value("This is the content of my first post."))
+                .andExpect(jsonPath("$.author").value("Pourya Nejadensan"))
+                .andExpect(jsonPath("$.date").value("2023-10-01"))
+                .andExpect(jsonPath("$.time").value("12:00:00"))
+                .andExpect(jsonPath("$.likes").value(0))
+                .andExpect(jsonPath("$.dislikes").value(0));
+    }
 }

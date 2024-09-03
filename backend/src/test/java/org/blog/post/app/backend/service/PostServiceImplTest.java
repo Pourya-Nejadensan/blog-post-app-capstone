@@ -177,4 +177,58 @@ class PostServiceImplTest {
         // when & then
         assertThrows(ResourceNotFoundException.class, () -> postServiceImpl.deletePostById("1"));
     }
+
+    @Test
+    void updatePostById_whenPostExists_thenPostIsUpdated() {
+        // given
+        Post post = new Post(
+                "1",
+                "Title1",
+                "Content1",
+                "Author1",
+                "2023-10-01",
+                "10:00",
+                10,
+                1
+        );
+        when(postRepository.findById("1")).thenReturn(Optional.of(post));
+        when(postRepository.save(post)).thenReturn(post);
+
+        PostDTO postDTO = new PostDTO(
+                "Title1",
+                "Content1",
+                "Author1",
+                "2023-10-01",
+                "10:00",
+                10,
+                1
+        );
+
+        // when
+        PostDTO updatedPost = postServiceImpl.updatePostById("1", postDTO);
+
+        // then
+        verify(postRepository).findById("1");
+        verify(postRepository).save(post);
+        assertEquals(postDTO, updatedPost);
+    }
+
+    @Test
+    void updatePostById_whenPostDoesNotExist_thenThrowResourceNotFoundException() {
+        // given
+        when(postRepository.findById("1")).thenReturn(Optional.empty());
+
+        PostDTO postDTO = new PostDTO(
+                "Title1",
+                "Content1",
+                "Author1",
+                "2023-10-01",
+                "10:00",
+                10,
+                1
+        );
+
+        // when & then
+        assertThrows(ResourceNotFoundException.class, () -> postServiceImpl.updatePostById("1", postDTO));
+    }
 }
