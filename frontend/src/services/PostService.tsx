@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {PostDTO} from "../dto/PostDTO.tsx";
+import { PostDTO } from "../dto/PostDTO";
 
 const API_URL = '/api/post';
 
@@ -28,6 +28,16 @@ export const deletePost = async (postId: string) => {
         await axios.delete(`${API_URL}/delete/${postId}`);
     } catch (error) {
         console.error('Error deleting post:', error);
+        throw error;
+    }
+};
+
+export const updatePost = async (postId: string, postDTO: PostDTO) => {
+    try {
+        const response = await axios.put(`${API_URL}/update/${postId}`, postDTO);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating post:', error);
         throw error;
     }
 };

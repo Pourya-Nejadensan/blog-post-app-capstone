@@ -54,4 +54,29 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
         postRepository.delete(post);
     }
+
+    @Override
+    public PostDTO updatePostById(String id, PostDTO postDTO) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id))
+        .withTitle(postDTO.title())
+        .withContent(postDTO.content())
+        .withAuthor(postDTO.author())
+        .withDate(postDTO.date())
+        .withTime(postDTO.time())
+        .withLikes(postDTO.likes())
+        .withDislikes(postDTO.dislikes());
+
+        postRepository.save(post);
+
+        return new PostDTO(
+                post.title(),
+                post.content(),
+                post.author(),
+                post.date(),
+                post.time(),
+                post.likes(),
+                post.dislikes()
+        );
+    }
 }

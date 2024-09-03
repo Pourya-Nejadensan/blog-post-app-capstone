@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllPosts } from '../services/PostService';
-import { Post } from '../models/Post.tsx';
+import { Post } from '../models/Post';
 
 export const useFetchPosts = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -10,16 +10,16 @@ export const useFetchPosts = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await getAllPosts();
-                setPosts(res);
+                const data = await getAllPosts();
+                setPosts(data);
             } catch (error) {
-                setError('Failed to fetch posts');
+                setError('Error fetching posts');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchPosts().then(r => r);
+        fetchPosts();
     }, []);
 
     return { posts, loading, error };

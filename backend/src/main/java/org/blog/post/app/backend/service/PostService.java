@@ -9,4 +9,5 @@ public interface PostService {
     List<Post> getAllPosts();
     Post createPost(PostDTO postDTO);
     void deletePostById(String id);
+    PostDTO updatePostById(String id, PostDTO postDTO);
 }
