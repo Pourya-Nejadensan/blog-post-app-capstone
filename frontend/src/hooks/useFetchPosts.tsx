@@ -10,8 +10,8 @@ export const useFetchPosts = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const data = await getAllPosts();
-                setPosts(data);
+                const res = await getAllPosts();
+                setPosts(res);
             } catch (error) {
                 setError('Failed to fetch posts');
             } finally {
@@ -19,7 +19,7 @@ export const useFetchPosts = () => {
             }
         };
 
-        fetchPosts();
+        fetchPosts().then(r => r);
     }, []);
 
     return { posts, loading, error };

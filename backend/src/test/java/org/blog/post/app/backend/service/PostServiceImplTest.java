@@ -1,13 +1,16 @@
 package org.blog.post.app.backend.service;
 
 import org.blog.post.app.backend.dto.PostDTO;
+import org.blog.post.app.backend.exception.ResourceNotFoundException;
 import org.blog.post.app.backend.model.Post;
 import org.blog.post.app.backend.repository.PostRepository;
 import org.blog.post.app.backend.service.impl.PostServiceImpl;
 import org.blog.post.app.backend.util.IdService;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -138,5 +141,40 @@ class PostServiceImplTest {
         verify(postRepository).save(expectedPost);
         verify(idService).generateId();
         assertEquals(expectedPost, createdPost);
+    }
+
+    @Test
+    @DirtiesContext
+    void deletePostById_whenPostExists_thenPostIsDeleted(){
+        // given
+        Post post = new Post(
+                "1",
+                "Title1",
+                "Content1",
+                "Author1",
+                "2023-10-01",
+                "10:00",
+                10,
+                1
+        );
+        when(postRepository.findById("1")).thenReturn(Optional.of(post));
+        doNothing().when(postRepository).delete(post);
+
+        // when
+        postServiceImpl.deletePostById("1");
+
+        // then
+        verify(postRepository).findById("1");
+        verify(postRepository).delete(post);
+    }
+
+    @Test
+    @DirtiesContext
+    void deletePostById_whenPostDoesNotExist_thenThrowResourceNotFoundException() {
+        // given
+        when(postRepository.findById("1")).thenReturn(Optional.empty());
+
+        // when & then
+        assertThrows(ResourceNotFoundException.class, () -> postServiceImpl.deletePostById("1"));
     }
 }
