@@ -22,3 +22,12 @@ export const createPost = async (postDTO: PostDTO) => {
         throw error;
     }
 };
+
+export const deletePost = async (postId: string) => {
+    try {
+        await axios.delete(`${API_URL}/delete/${postId}`);
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        throw error;
+    }
+};
