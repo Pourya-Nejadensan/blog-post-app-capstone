@@ -39,4 +39,9 @@ public class PostController {
     public ResponseEntity<PostDTO> updatePostById(@PathVariable(name = "id") String id, @RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(postServiceImpl.updatePostById(id, postDTO), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPostById(@PathVariable(name = "id") String id) {
+        return new ResponseEntity<>(postServiceImpl.getPostById(id), HttpStatus.OK);
+    }
 }

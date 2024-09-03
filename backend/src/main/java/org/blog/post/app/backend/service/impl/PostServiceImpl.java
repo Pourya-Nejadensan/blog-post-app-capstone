@@ -79,4 +79,18 @@ public class PostServiceImpl implements PostService {
                 post.dislikes()
         );
     }
+
+    @Override
+    public PostDTO getPostById(String id) {
+        return postRepository.findById(id)
+                .map(post -> new PostDTO(
+                        post.title(),
+                        post.content(),
+                        post.author(),
+                        post.date(),
+                        post.time(),
+                        post.likes(),
+                        post.dislikes()))
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+    }
 }
