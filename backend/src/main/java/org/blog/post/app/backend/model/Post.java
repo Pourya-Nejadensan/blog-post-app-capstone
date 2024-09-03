@@ -1,5 +1,8 @@
 package org.blog.post.app.backend.model;
 
+import lombok.With;
+
+@With
 public record Post(
         String id,
         String title,
