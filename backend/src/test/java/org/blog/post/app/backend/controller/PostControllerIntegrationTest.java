@@ -155,4 +155,42 @@ class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.likes").value(0))
                 .andExpect(jsonPath("$.dislikes").value(0));
     }
+
+    @Test
+    @DirtiesContext
+    void getPostById() throws Exception {
+        // given
+        postRepository.save(
+                new Post(
+                        "1",
+                        "Title1",
+                        "Content1",
+                        "Author1",
+                        "2023-10-01",
+                        "10:00",
+                        10,
+                        1
+                ));
+
+        // when
+        mockMvc.perform(get("/api/post/{id}", "1"))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Title1"))
+                .andExpect(jsonPath("$.content").value("Content1"))
+                .andExpect(jsonPath("$.author").value("Author1"))
+                .andExpect(jsonPath("$.date").value("2023-10-01"))
+                .andExpect(jsonPath("$.time").value("10:00"))
+                .andExpect(jsonPath("$.likes").value(10))
+                .andExpect(jsonPath("$.dislikes").value(1));
+    }
+
+    @Test
+    @DirtiesContext
+    void getPostById_NotFound() throws Exception {
+        // when
+        mockMvc.perform(get("/api/post/{id}", "1"))
+                // then
+                .andExpect(status().isNotFound());
+    }
 }

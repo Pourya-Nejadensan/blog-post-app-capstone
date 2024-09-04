@@ -41,3 +41,13 @@ export const updatePost = async (postId: string, postDTO: PostDTO) => {
         throw error;
     }
 };
+
+export const getPostById = async (postId: string) => {
+    try {
+        const response = await axios.get(`${API_URL}/${postId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching post:', error);
+        throw error;
+    }
+};
