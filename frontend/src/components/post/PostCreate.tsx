@@ -38,31 +38,31 @@ export default function PostCreate() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />
+                    <input type="text" name="title" value={formData.title} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="content">Content:</label>
-                    <textarea id="content" name="content" value={formData.content} onChange={handleChange} required />
+                    <textarea name="content" value={formData.content} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="author">Author:</label>
-                    <input type="text" id="author" name="author" value={formData.author} onChange={handleChange} required />
+                    <input type="text" name="author" value={formData.author} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="date">Date:</label>
-                    <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} required />
+                    <input type="date" name="date" value={formData.date} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="time">Time:</label>
-                    <input type="time" id="time" name="time" value={formData.time} onChange={handleChange} required />
+                    <input type="time" name="time" value={formData.time} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="likes">Likes:</label>
-                    <input type="number" id="likes" name="likes" value={formData.likes} onChange={handleChange} required />
+                    <input type="number" name="likes" value={formData.likes} onChange={handleChange} required />
                 </div>
                 <div>
                     <label htmlFor="dislikes">Dislikes:</label>
-                    <input type="number" id="dislikes" name="dislikes" value={formData.dislikes} onChange={handleChange} required />
+                    <input type="number" name="dislikes" value={formData.dislikes} onChange={handleChange} required />
                 </div>
                 <button type="submit">Create Post</button>
             </form>

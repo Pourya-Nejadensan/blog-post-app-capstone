@@ -4,7 +4,9 @@ import Header from './Header';
 import Footer from './Footer';
 import About from './About';
 import Contact from './Contact';
-import CreatePostPage from "../../pages/CreatePostPage.tsx";
+import CreatePostPage from "../../pages/post/CreatePostPage";
+import DetailsPostPage from "../../pages/post/DetailsPostPage";
+import EditPostPage from "../../pages/post/EditPostPage.tsx";
 
 export default function AppRoutes() {
     return (
@@ -15,6 +17,8 @@ export default function AppRoutes() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/create-post" element={<CreatePostPage />} />
+                <Route path="/detail-post/:id" element={<DetailsPostPage />} />
+                <Route path="/edit-post/:id" element={<EditPostPage />} />
             </Routes>
             <Footer />
         </Router>
