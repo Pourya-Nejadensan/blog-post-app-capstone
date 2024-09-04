@@ -43,8 +43,6 @@ export default function PostDetail({ postId }: PostDetailProps) {
         }
     };
 
-    console.log(postId);
-
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -52,7 +50,7 @@ export default function PostDetail({ postId }: PostDetailProps) {
     if (!post) {
         return <div>Post not found</div>;
     }
-    console.log(post);
+
     return (
         <div>
             <h2>{post.title}</h2>
