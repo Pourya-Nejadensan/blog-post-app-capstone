@@ -50,31 +50,31 @@ export default function EditPostForm({ postId, post }: Readonly<EditPostFormProp
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="title">Title: </label>
-                    <input type="text" name="title" defaultValue={formData.title} onChange={handleChange} />
+                    <input id="title" type="text" name="title" defaultValue={formData.title} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor="content">Content: </label>
-                    <textarea name="content" defaultValue={formData.content} onChange={handleChange}></textarea>
+                    <textarea id="content" name="content" defaultValue={formData.content} onChange={handleChange}></textarea>
                 </div>
                 <div>
                     <label htmlFor="author">Author: </label>
-                    <input type="text" name="author" defaultValue={formData.author} onChange={handleChange} />
+                    <input id="author" type="text" name="author" defaultValue={formData.author} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor="date">Date: </label>
-                    <input type="date" name="date" defaultValue={formData.date} onChange={handleChange} />
+                    <input id="date" type="date" name="date" defaultValue={formData.date} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor="time">Time: </label>
-                    <input type="time" name="time" defaultValue={formData.time} onChange={handleChange} />
+                    <input id="time" type="time" name="time" defaultValue={formData.time} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor="likes">Likes: </label>
-                    <input type="number" name="likes" defaultValue={formData.likes} onChange={handleChange} />
+                    <input id="likes" type="number" name="likes" defaultValue={formData.likes} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor="dislikes">Dislikes: </label>
-                    <input type="number" name="dislikes" defaultValue={formData.dislikes} onChange={handleChange} />
+                    <input id="dislikes" type="number" name="dislikes" defaultValue={formData.dislikes} onChange={handleChange} />
                 </div>
                 <button type="submit">Update</button>
             </form>
