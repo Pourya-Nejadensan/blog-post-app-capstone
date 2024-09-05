@@ -1,21 +1,35 @@
-import './Header.css';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import styled from 'styled-components';
+import { AppBar as MuiAppBar, Toolbar as MuiToolbar, Button, Box as MuiBox } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
-        <AppBar className="app-bar">
-            <Toolbar className="toolbar">
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    My Blog App Capstone
-                </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <AppBar>
+            <Toolbar>
+                <BoxBar>
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/about">About</Button>
                     <Button color="inherit" component={Link} to="/contact">Contact</Button>
                     <Button color="inherit" component={Link} to="/create-post">Create Post</Button>
-                </Box>
+                </BoxBar>
             </Toolbar>
         </AppBar>
     );
 }
+
+const AppBar = styled(MuiAppBar)`
+    position: fixed;
+    width: 100%;
+    top: 0;
+`;
+
+const Toolbar = styled(MuiToolbar)`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const BoxBar = styled(MuiBox)`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+`;
