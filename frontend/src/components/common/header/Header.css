@@ -1,0 +1,10 @@
+.app-bar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
