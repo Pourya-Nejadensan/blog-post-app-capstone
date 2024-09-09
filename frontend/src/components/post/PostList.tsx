@@ -1,8 +1,10 @@
 import { useFetchPosts } from '../../hooks/useFetchPosts';
-import PostCard from './PostCard';
+import PostCard from '../post/PostCard';
 import { deletePost } from '../../services/PostService';
 import { useState, useEffect } from 'react';
 import { Post } from '../../models/Post';
+import { Box } from '@mui/material';
+import styled from 'styled-components';
 
 export default function PostList() {
     const { posts, loading, error } = useFetchPosts();
@@ -30,15 +32,18 @@ export default function PostList() {
     }
 
     return (
-        <div>
-            <h1>Posts</h1>
-                  <ul>
-                    {postList.map(post => (
-                        <li key={post.id}>
-                            <PostCard post={post} onDelete={handleDelete} />
-                        </li>
-                    ))}
-                </ul>
-        </div>
+        <StyledBox>
+            {posts.map(post => (
+                <PostCard key={post.id} post={post} onDelete={handleDelete} />
+            ))}
+        </StyledBox>
     );
 }
+
+const StyledBox = styled(Box)`
+    margin-top: 64px; /* Adjust based on the height of the header */
+    margin-bottom: 64px; /* Adjust based on the height of the footer */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px; /* Adjust the gap between items as needed */
+`;

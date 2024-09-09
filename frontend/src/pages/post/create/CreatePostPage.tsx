@@ -1,4 +1,4 @@
-import PostCreate from '../../components/post/PostCreate.tsx';
+import PostCreate from './PostCreate.tsx';
 
 export default function CreatePostPage(){
     return (

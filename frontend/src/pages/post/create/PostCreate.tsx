@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createPost } from '../../services/PostService';
-import { PostDTO } from '../../dto/PostDTO';
+import { createPost } from '../../../services/PostService.tsx';
+import { PostDTO } from '../../../dto/PostDTO.tsx';
 
 export default function PostCreate() {
     const [formData, setFormData] = useState<PostDTO>({
