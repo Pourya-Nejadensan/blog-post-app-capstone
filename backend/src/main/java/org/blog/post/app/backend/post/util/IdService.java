@@ -1,4 +1,4 @@
-package org.blog.post.app.backend.util;
+package org.blog.post.app.backend.post.util;
 
 import org.springframework.stereotype.Service;
 
