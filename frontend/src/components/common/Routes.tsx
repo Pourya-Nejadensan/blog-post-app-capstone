@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PostList from '../post/PostList';
-import Header from './Header';
+import Header from './Header.tsx';
 import Footer from './Footer';
 import About from './About';
 import Contact from './Contact';
-import CreatePostPage from "../../pages/post/CreatePostPage";
+import CreatePostPage from "../../pages/post/create/CreatePostPage.tsx";
 import DetailsPostPage from "../../pages/post/DetailsPostPage";
 import EditPostPage from "../../pages/post/EditPostPage.tsx";
 
