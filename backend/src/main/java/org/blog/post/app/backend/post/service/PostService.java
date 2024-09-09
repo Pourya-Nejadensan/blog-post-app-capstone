@@ -1,7 +1,7 @@
-package org.blog.post.app.backend.service;
+package org.blog.post.app.backend.post.service;
 
-import org.blog.post.app.backend.dto.PostDTO;
-import org.blog.post.app.backend.model.Post;
+import org.blog.post.app.backend.post.dto.PostDTO;
+import org.blog.post.app.backend.post.model.Post;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package org.blog.post.app.backend.controller;
 
-import org.blog.post.app.backend.model.Post;
-import org.blog.post.app.backend.repository.PostRepository;
+import org.blog.post.app.backend.post.model.Post;
+import org.blog.post.app.backend.post.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

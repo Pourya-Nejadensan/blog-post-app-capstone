@@ -1,12 +1,12 @@
-package org.blog.post.app.backend.service.impl;
+package org.blog.post.app.backend.post.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.blog.post.app.backend.dto.PostDTO;
-import org.blog.post.app.backend.exception.ResourceNotFoundException;
-import org.blog.post.app.backend.model.Post;
-import org.blog.post.app.backend.repository.PostRepository;
-import org.blog.post.app.backend.service.PostService;
-import org.blog.post.app.backend.util.IdService;
+import org.blog.post.app.backend.post.dto.PostDTO;
+import org.blog.post.app.backend.post.exception.ResourceNotFoundException;
+import org.blog.post.app.backend.post.model.Post;
+import org.blog.post.app.backend.post.repository.PostRepository;
+import org.blog.post.app.backend.post.service.PostService;
+import org.blog.post.app.backend.post.util.IdService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

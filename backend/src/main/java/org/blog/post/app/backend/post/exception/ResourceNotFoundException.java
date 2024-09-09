@@ -1,4 +1,4 @@
-package org.blog.post.app.backend.exception;
+package org.blog.post.app.backend.post.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,6 @@
-package org.blog.post.app.backend.model;
+package org.blog.post.app.backend.post.dto;
 
-import lombok.With;
-
-@With
-public record Post(
-        String id,
+public record PostDTO(
         String title,
         String content,
         String author,

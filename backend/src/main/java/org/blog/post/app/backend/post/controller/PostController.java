@@ -1,9 +1,9 @@
-package org.blog.post.app.backend.controller;
+package org.blog.post.app.backend.post.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.blog.post.app.backend.dto.PostDTO;
-import org.blog.post.app.backend.model.Post;
-import org.blog.post.app.backend.service.impl.PostServiceImpl;
+import org.blog.post.app.backend.post.dto.PostDTO;
+import org.blog.post.app.backend.post.model.Post;
+import org.blog.post.app.backend.post.service.impl.PostServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
