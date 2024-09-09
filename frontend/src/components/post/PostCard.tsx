@@ -23,7 +23,7 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={post.imageUrl}
+                    image="should change"   // {post.imageUrl}
                     alt={post.title}
                 />
                 <CardContent>
