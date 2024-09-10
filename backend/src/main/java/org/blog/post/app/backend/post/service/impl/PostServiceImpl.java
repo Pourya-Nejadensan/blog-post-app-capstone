@@ -26,8 +26,7 @@ public class PostServiceImpl implements PostService {
                         post.title(),
                         post.content(),
                         post.author(),
-                        post.date(),
-                        post.time(),
+                        post.timestamp(),
                         post.likes(),
                         post.dislikes()))
                 .toList();
@@ -40,8 +39,7 @@ public class PostServiceImpl implements PostService {
                 postDTO.title(),
                 postDTO.content(),
                 postDTO.author(),
-                postDTO.date(),
-                postDTO.time(),
+                postDTO.timestamp(),
                 postDTO.likes(),
                 postDTO.dislikes()
         );
@@ -59,13 +57,12 @@ public class PostServiceImpl implements PostService {
     public PostDTO updatePostById(String id, PostDTO postDTO) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id))
-        .withTitle(postDTO.title())
-        .withContent(postDTO.content())
-        .withAuthor(postDTO.author())
-        .withDate(postDTO.date())
-        .withTime(postDTO.time())
-        .withLikes(postDTO.likes())
-        .withDislikes(postDTO.dislikes());
+                .withTitle(postDTO.title())
+                .withContent(postDTO.content())
+                .withAuthor(postDTO.author())
+                .withTimestamp(postDTO.timestamp())
+                .withLikes(postDTO.likes())
+                .withDislikes(postDTO.dislikes());
 
         postRepository.save(post);
 
@@ -73,8 +70,7 @@ public class PostServiceImpl implements PostService {
                 post.title(),
                 post.content(),
                 post.author(),
-                post.date(),
-                post.time(),
+                post.timestamp(),
                 post.likes(),
                 post.dislikes()
         );
@@ -87,8 +83,7 @@ public class PostServiceImpl implements PostService {
                         post.title(),
                         post.content(),
                         post.author(),
-                        post.date(),
-                        post.time(),
+                        post.timestamp(),
                         post.likes(),
                         post.dislikes()))
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));

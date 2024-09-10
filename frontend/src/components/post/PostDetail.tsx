@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Post } from "../../models/Post.tsx";
 import { deletePost, getPostById } from "../../services/PostService.tsx";
+import {format} from "date-fns";
 
 type PostDetailProps = {
     readonly postId: string;
@@ -51,12 +52,15 @@ export default function PostDetail({ postId }: PostDetailProps) {
         return <div>Post not found</div>;
     }
 
+    const formattedDate = format(new Date(post.timestamp), 'yyyy-MM-dd');
+    const formattedTime = format(new Date(post.timestamp), 'HH:mm');
+
     return (
         <div>
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <p><strong>Author:</strong> {post.author}</p>
-            <p><strong>Date:</strong> {post.date} <strong>Time:</strong> {post.time}</p>
+            <p><strong>Date:</strong> {formattedDate} <strong>Time:</strong> {formattedTime}</p>
             <p><strong>Likes:</strong> {post.likes} <strong>Dislikes:</strong> {post.dislikes}</p>
             <button onClick={() => handleEditPostDetail(post)}>Edit</button>
             <button onClick={() => handleDelete(postId)}>Delete</button>
