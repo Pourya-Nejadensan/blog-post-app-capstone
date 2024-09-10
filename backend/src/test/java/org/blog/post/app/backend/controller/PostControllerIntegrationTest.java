@@ -10,6 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -23,11 +27,26 @@ class PostControllerIntegrationTest {
     @Autowired
     PostRepository postRepository;
 
+    private Instant combineDateTime() {
+        LocalDateTime localDateTime = LocalDateTime.parse("2023-10-01T10:00");
+        return localDateTime.atZone(ZoneOffset.UTC).toInstant();
+    }
+
+    Instant timestamp = combineDateTime();
+
     @Test
     @DirtiesContext
     void getAllPosts() throws Exception {
         // given
-        postRepository.save(new Post("1", "Title1", "Content1", "Author1", "2023-10-01", "10:00", 10, 1));
+        postRepository.save(new Post(
+                "1",
+                "Title1",
+                "Content1",
+                "Author1",
+                timestamp,
+                10,
+                1
+        ));
 
         // when
         mockMvc.perform(get("/api/post/all"))
@@ -41,8 +60,7 @@ class PostControllerIntegrationTest {
                                 "title": "Title1",
                                 "content": "Content1",
                                 "author": "Author1",
-                                "date": "2023-10-01",
-                                "time": "10:00",
+                                "timestamp": "2023-10-01T10:00:00Z",
                                 "likes": 10,
                                 "dislikes": 1
                             }
@@ -60,8 +78,7 @@ class PostControllerIntegrationTest {
                     "title": "My First Post",
                     "content": "This is the content of my first post.",
                     "author": "Pourya Nejadensan",
-                    "date": "2023-10-01",
-                    "time": "12:00:00",
+                    "timestamp": "2023-10-01T12:00:00Z",
                     "likes": 0,
                     "dislikes": 0
                 }
@@ -77,8 +94,7 @@ class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("My First Post"))
                 .andExpect(jsonPath("$.content").value("This is the content of my first post."))
                 .andExpect(jsonPath("$.author").value("Pourya Nejadensan"))
-                .andExpect(jsonPath("$.date").value("2023-10-01"))
-                .andExpect(jsonPath("$.time").value("12:00:00"))
+                .andExpect(jsonPath("$.timestamp").value("2023-10-01T12:00:00Z"))
                 .andExpect(jsonPath("$.likes").value(0))
                 .andExpect(jsonPath("$.dislikes").value(0));
     }
@@ -93,8 +109,7 @@ class PostControllerIntegrationTest {
                         "Title1",
                         "Content1",
                         "Author1",
-                        "2023-10-01",
-                        "10:00",
+                        timestamp,
                         10,
                         1
                 ));
@@ -123,8 +138,7 @@ class PostControllerIntegrationTest {
                         "Title1",
                         "Content1",
                         "Author1",
-                        "2023-10-01",
-                        "10:00",
+                        timestamp,
                         10,
                         1
                 ));
@@ -134,8 +148,7 @@ class PostControllerIntegrationTest {
                     "title": "My First Post",
                     "content": "This is the content of my first post.",
                     "author": "Pourya Nejadensan",
-                    "date": "2023-10-01",
-                    "time": "12:00:00",
+                    "timestamp": "2023-10-01T12:00:00Z",
                     "likes": 0,
                     "dislikes": 0
                 }
@@ -150,8 +163,7 @@ class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("My First Post"))
                 .andExpect(jsonPath("$.content").value("This is the content of my first post."))
                 .andExpect(jsonPath("$.author").value("Pourya Nejadensan"))
-                .andExpect(jsonPath("$.date").value("2023-10-01"))
-                .andExpect(jsonPath("$.time").value("12:00:00"))
+                .andExpect(jsonPath("$.timestamp").value("2023-10-01T12:00:00Z"))
                 .andExpect(jsonPath("$.likes").value(0))
                 .andExpect(jsonPath("$.dislikes").value(0));
     }
@@ -166,8 +178,7 @@ class PostControllerIntegrationTest {
                         "Title1",
                         "Content1",
                         "Author1",
-                        "2023-10-01",
-                        "10:00",
+                        timestamp,
                         10,
                         1
                 ));
@@ -179,8 +190,7 @@ class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("Title1"))
                 .andExpect(jsonPath("$.content").value("Content1"))
                 .andExpect(jsonPath("$.author").value("Author1"))
-                .andExpect(jsonPath("$.date").value("2023-10-01"))
-                .andExpect(jsonPath("$.time").value("10:00"))
+                .andExpect(jsonPath("$.timestamp").value("2023-10-01T10:00:00Z"))
                 .andExpect(jsonPath("$.likes").value(10))
                 .andExpect(jsonPath("$.dislikes").value(1));
     }

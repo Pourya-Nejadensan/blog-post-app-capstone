@@ -9,6 +9,9 @@ import org.blog.post.app.backend.post.util.IdService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,13 @@ class PostServiceImplTest {
     private final PostRepository postRepository = mock(PostRepository.class);
     private final IdService idService = mock(IdService.class);
     private final PostServiceImpl postServiceImpl = new PostServiceImpl(postRepository, idService);
+
+    private Instant combineDateTime() {
+        LocalDateTime localDateTime = LocalDateTime.parse("2023-10-01" + "T" + "10:00");
+        return localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+    }
+
+    Instant timestamp = combineDateTime();
 
     @Test
     void getAllPostsTest_whenPostsAreEmpty_thenReturnTrue() {
@@ -42,8 +52,7 @@ class PostServiceImplTest {
                         "Title1",
                         "Content1",
                         "Author1",
-                        "2023-10-01",
-                        "10:00",
+                        timestamp,
                         10,
                         1
                 ),
@@ -53,8 +62,7 @@ class PostServiceImplTest {
                         "Title2",
                         "Content2",
                         "Author2",
-                        "2023-10-02",
-                        "11:00",
+                        timestamp,
                         20,
                         2
                 )
@@ -79,8 +87,7 @@ class PostServiceImplTest {
                         "Title1",
                         "Content1",
                         "Author1",
-                        "2023-10-01",
-                        "10:00",
+                        timestamp,
                         10,
                         1
                 ),
@@ -90,8 +97,7 @@ class PostServiceImplTest {
                         "Title2",
                         "Content2",
                         "Author2",
-                        "2023-10-02",
-                        "11:00",
+                        timestamp,
                         20,
                         2
                 )
@@ -118,8 +124,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1);
         when(postRepository.save(expectedPost)).thenReturn(expectedPost);
@@ -129,8 +134,7 @@ class PostServiceImplTest {
                 expectedPost.title(),
                 expectedPost.content(),
                 expectedPost.author(),
-                expectedPost.date(),
-                expectedPost.time(),
+                expectedPost.timestamp(),
                 expectedPost.likes(),
                 expectedPost.dislikes());
 
@@ -152,8 +156,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1
         );
@@ -186,8 +189,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1
         );
@@ -198,8 +200,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1
         );
@@ -222,8 +223,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1
         );
@@ -240,8 +240,7 @@ class PostServiceImplTest {
                 "Title1",
                 "Content1",
                 "Author1",
-                "2023-10-01",
-                "10:00",
+                timestamp,
                 10,
                 1
         );
@@ -255,8 +254,7 @@ class PostServiceImplTest {
         assertEquals(post.title(), postDTO.title());
         assertEquals(post.content(), postDTO.content());
         assertEquals(post.author(), postDTO.author());
-        assertEquals(post.date(), postDTO.date());
-        assertEquals(post.time(), postDTO.time());
+        assertEquals(post.timestamp(), postDTO.timestamp());
         assertEquals(post.likes(), postDTO.likes());
         assertEquals(post.dislikes(), postDTO.dislikes());
     }

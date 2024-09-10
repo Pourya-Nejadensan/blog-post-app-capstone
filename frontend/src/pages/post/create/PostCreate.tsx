@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { createPost } from '../../../services/PostService.tsx';
 import { PostDTO } from '../../../dto/PostDTO.tsx';
+import {format, parseISO} from 'date-fns';
 
 export default function PostCreate() {
-    const [formData, setFormData] = useState<PostDTO>({
+    const [formData, setFormData] = useState({
         title: '',
         content: '',
         author: '',
@@ -24,8 +25,12 @@ export default function PostCreate() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const { date, time, ...rest } = formData;
+        const timestamp = format(parseISO(`${date}T${time}`), "yyyy-MM-dd'T'HH:mm:ssXXX"); // Combine date and time into ISO string
+        const postDTO: PostDTO = { ...rest, timestamp };
+
         try {
-            await createPost(formData);
+            await createPost(postDTO);
             setMessage('Post created successfully');
         } catch (error) {
             console.error('There was an error creating the post!', error);

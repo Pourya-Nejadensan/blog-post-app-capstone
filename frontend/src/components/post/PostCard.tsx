@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Post } from "../../models/Post";
+import { format } from 'date-fns';
 
 type PostCardProps = {
     post: Post;
@@ -16,6 +17,10 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
             onDelete(postId);
         }
     };
+
+    const formattedDate = format(new Date(post.timestamp), 'yyyy-MM-dd');
+    const formattedTime = format(new Date(post.timestamp), 'HH:mm');
+
 
     return (
         <StyledCard>
@@ -34,7 +39,7 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                         {post.content}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        By {post.author} on {post.date} at {post.time}
+                        By {post.author} on {formattedDate} at {formattedTime}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Likes: {post.likes} Dislikes: {post.dislikes}
