@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Post } from '../../models/Post';
 import { updatePost } from '../../services/PostService';
 import { useNavigate } from 'react-router-dom';
+import {format, parseISO} from "date-fns";
+import {PostDTO} from "../../dto/PostDTO.tsx";
 
 type EditPostFormProps = {
     postId: string;
@@ -9,18 +11,33 @@ type EditPostFormProps = {
 };
 
 export default function EditPostForm({ postId, post }: Readonly<EditPostFormProps>) {
+
+    const parsedDate = parseISO(post?.timestamp ?? '');
+
+    const date = format(parsedDate, 'yyyy-MM-dd');
+    const time = format(parsedDate, 'HH:mm');
+
     const initialPost: Post = post || {
         id: '',
         title: '',
         content: '',
         author: '',
-        date: '',
-        time: '',
+        timestamp:'',
         likes: 0,
         dislikes: 0,
     };
 
-    const [formData, setFormData] = useState<Post>(initialPost);
+    const [formData, setFormData] = useState({
+        id: initialPost.id,
+        title: initialPost.title,
+        content: initialPost.content,
+        author: initialPost.author,
+        date: date,
+        time: time,
+        likes: initialPost.likes,
+        dislikes: initialPost.dislikes,
+    });
+
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,7 +52,10 @@ export default function EditPostForm({ postId, post }: Readonly<EditPostFormProp
         e.preventDefault();
         try {
             formData.id = postId;
-            await updatePost(formData.id, formData);
+            const timestamp = format(parseISO(`${formData.date}T${formData.time}`), "yyyy-MM-dd'T'HH:mm:ssXXX"); // Combine date and time into ISO string
+            const postDTO: PostDTO = { ...formData, timestamp };
+
+            await updatePost(formData.id, postDTO);
             alert('Post updated successfully');
             navigate('/');
         } catch (error) {
