@@ -20,16 +20,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPosts() {
-        return postRepository.findAll().stream()
-                .map(post -> new Post(
-                        post.id(),
-                        post.title(),
-                        post.content(),
-                        post.author(),
-                        post.timestamp(),
-                        post.likes(),
-                        post.dislikes()))
-                .toList();
+        return postRepository.findAll();
     }
 
     @Override
