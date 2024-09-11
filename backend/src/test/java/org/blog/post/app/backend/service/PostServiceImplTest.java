@@ -46,36 +46,36 @@ class PostServiceImplTest {
     @Test
     void getAllPostsTest_whenPostsAreNotEmpty_thenReturnTrue() {
         // given
-        when(postRepository.findAll()).thenReturn(List.of(
-                new Post(
-                        "1",
-                        "Title1",
-                        "Content1",
-                        "Author1",
-                        timestamp,
-                        10,
-                        1
-                ),
+        List<Post> mockPosts = List.of(
+            new Post(
+                    "1",
+                    "Title1",
+                    "Content1",
+                    "Author1",
+                    timestamp,
+                    10,
+                    1
+            ),
 
-                new Post(
-                        "2",
-                        "Title2",
-                        "Content2",
-                        "Author2",
-                        timestamp,
-                        20,
-                        2
-                )
-        ));
+            new Post(
+                    "2",
+                    "Title2",
+                    "Content2",
+                    "Author2",
+                    timestamp,
+                    20,
+                    2
+            )
+        );
+
+        when(postRepository.findAll()).thenReturn(mockPosts);
 
         // when
         List<Post> posts = postServiceImpl.getAllPosts();
 
         // then
-        assertFalse(posts.isEmpty());
-        assertEquals(2, posts.size());
-        assertEquals("Title1", posts.get(0).title());
-        assertEquals("Title2", posts.get(1).title());
+        verify(postRepository).findAll();
+        assertEquals(posts, mockPosts);
     }
 
     @Test
