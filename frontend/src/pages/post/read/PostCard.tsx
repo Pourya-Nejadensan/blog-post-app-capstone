@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Post } from "../../models/Post";
+import { Post } from "../../../models/Post.tsx";
 import { format } from 'date-fns';
 
 type PostCardProps = {

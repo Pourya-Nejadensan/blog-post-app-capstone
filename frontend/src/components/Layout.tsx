@@ -2,8 +2,6 @@ import { Box, Container } from '@mui/material';
 import styled from 'styled-components';
 import React, { ReactNode } from 'react';
 
-
-
 const Main = styled(Box)`
   margin-top: 64px; /* Adjust based on the height of the header */
   flex: 1;
@@ -11,7 +9,6 @@ const Main = styled(Box)`
   flex-direction: row;
   align-items: center;
 `;
-
 
 type LayoutProps = {
     children: ReactNode;

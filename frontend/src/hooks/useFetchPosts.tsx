@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllPosts } from '../services/PostService';
+import { getAllPostsService } from '../services/PostService';
 import { Post } from '../models/Post';
 
 export const useFetchPosts = () => {
@@ -10,7 +10,7 @@ export const useFetchPosts = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const data = await getAllPosts();
+                const data = await getAllPostsService();
                 setPosts(data);
             } catch (error) {
                 setError('Error fetching posts');
@@ -22,5 +22,5 @@ export const useFetchPosts = () => {
         fetchPosts();
     }, []);
 
-    return { posts, loading, error };
+    return { posts, setPosts, loading, error };
 };

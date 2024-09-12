@@ -1,23 +1,22 @@
-import { useFetchPosts } from '../../hooks/useFetchPosts';
-import PostCard from '../post/PostCard';
-import { deletePost } from '../../services/PostService';
-import { useState, useEffect } from 'react';
-import { Post } from '../../models/Post';
+import PostCard from './PostCard.tsx';
+import { deletePostService } from '../../../services/PostService.tsx';
+import { Post } from '../../../models/Post.tsx';
 import { Box } from '@mui/material';
 import styled from 'styled-components';
 
-export default function PostList() {
-    const { posts, loading, error } = useFetchPosts();
-    const [postList, setPostList] = useState<Post[]>([]);
+type PostListProps = {
+    posts: Post[];
+    setPosts: (posts: Post[]) => void;
+    loading: boolean;
+    error: string | null;
+};
 
-    useEffect(() => {
-        setPostList(posts);
-    }, [posts]);
+export default function PostList({ posts, setPosts, loading, error }: Readonly<PostListProps>) {
 
     const handleDelete = async (postId: string) => {
         try {
-            await deletePost(postId);
-            setPostList(postList.filter(post => post.id !== postId));
+            await deletePostService(postId);
+            setPosts(posts.filter(post => post.id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);
         }
