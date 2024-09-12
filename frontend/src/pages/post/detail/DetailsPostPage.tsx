@@ -1,5 +1,5 @@
 import PostDetail from './PostDetail.tsx';
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PostDTO } from "../../../dto/PostDTO.tsx";
 import { useEffect, useState } from "react";
 import { Post } from "../../../models/Post.tsx";

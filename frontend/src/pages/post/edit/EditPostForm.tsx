@@ -6,19 +6,18 @@ import { PostDTO } from "../../../dto/PostDTO.tsx";
 import { updatePostService } from "../../../services/PostService.tsx";
 
 type EditPostFormProps = {
-    postId: string;
     post: Post;
     updatePost: (postId: string, updatedPost: Post) => void;
 };
 
-export default function EditPostForm({ postId, post, updatePost }: Readonly<EditPostFormProps>) {
+export default function EditPostForm({ post, updatePost }: Readonly<EditPostFormProps>) {
 
     const parsedDate = parseISO(post.timestamp);
     const date = format(parsedDate, 'yyyy-MM-dd');
     const time = format(parsedDate, 'HH:mm');
 
     const [formData, setFormData] = useState({
-        id: postId,
+        id: post.id,
         title: post.title,
         content: post.content,
         author: post.author,
