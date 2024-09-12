@@ -1,5 +1,5 @@
 import PostDetail from './PostDetail.tsx';
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { PostDTO } from "../../../dto/PostDTO.tsx";
 import { useEffect, useState } from "react";
 import { Post } from "../../../models/Post.tsx";
@@ -14,23 +14,25 @@ export default function DetailsPostPage({ deletePost }: Readonly<DetailsPostPage
 
     const [post, setPost] = useState<Post>();
     const { postId } = useParams<{ postId: string }>();
+    const navigate = useNavigate();
 
-    if (postId === undefined) {
-        throw new Error('Undefined id');
-    } else {
-        useEffect(() => {
-            const fetchPost = async () => {
-                try {
-                    const postDTO: PostDTO = await getPostByIdService(postId);
-                    const post: Post = convertPostDTOToPost(postId, postDTO);
-                    setPost(post);
-                } catch (error) {
-                    console.error('Error getting post by id:', error);
-                }
-            };
-            fetchPost().then(r => r);
-        }, [postId]);
-    }
+    useEffect(() => {
+        if(!postId) {
+            navigate('/');
+            return
+        }
+        const fectchPost = async () => {
+            try {
+                const postDTO: PostDTO = await getPostByIdService(postId);
+                const post: Post = convertPostDTOToPost(postId, postDTO);
+                setPost(post);
+            } catch (error) {
+                console.error('Error getting post by id:', error);
+            }
+        };
+
+        fectchPost().then(r => r);
+    }, [postId, navigate]);
 
     if (!post) {
         return <div>Post not found!</div>;
