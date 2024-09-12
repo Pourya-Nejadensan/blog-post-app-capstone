@@ -6,17 +6,17 @@ import styled from 'styled-components';
 
 type PostListProps = {
     posts: Post[];
-    setPosts: (posts: Post[]) => void;
     loading: boolean;
     error: string | null;
+    deletePost: (postId: string) => void;
 };
 
-export default function PostList({ posts, setPosts, loading, error }: Readonly<PostListProps>) {
+export default function PostList({ posts, loading, error, deletePost }: Readonly<PostListProps>) {
 
     const handleDelete = async (postId: string) => {
         try {
             await deletePostService(postId);
-            setPosts(posts.filter(post => post.id !== postId));
+            deletePost(postId);
         } catch (error) {
             console.error('Error deleting post:', error);
         }
