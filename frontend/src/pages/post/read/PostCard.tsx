@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material';
+
 import { Link } from 'react-router-dom';
 import { Post } from "../../../models/Post.tsx";
 import { format } from 'date-fns';
@@ -48,7 +49,7 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                     </Typography>
                 </CardContent>
             </Link>
-            <DeleteButton onClick={() => handleDeletePostCard(post.id)}>Delete</DeleteButton>
+            <Button variant="contained" color="error" size="small" sx={{ mb: 2, ml: 2, mt: 2}} onClick={() => handleDeletePostCard(post.id)}>Delete</Button>
         </StyledCard>
     );
 }
@@ -57,17 +58,4 @@ const StyledCard = styled(Card)`
     margin: 16px;
     width: 100%;
     max-width: 600px;
-`;
-
-const DeleteButton = styled.button`
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin: 16px;
-    border-radius: 4px;
-    &:hover {
-        background-color: #d32f2f;
-    }
 `;
