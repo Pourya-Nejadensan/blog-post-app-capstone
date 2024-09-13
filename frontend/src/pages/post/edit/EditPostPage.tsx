@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { PostDTO } from "../../../dto/PostDTO.tsx";
 import {convertPostDTOToPost} from "../../../util/maper/convertPostDTOToPost.tsx";
 
+import { Container, Typography } from '@mui/material';
+import styled from 'styled-components';
+
 type EditPostPageProps = {
     updatePost: (postId: string, updatedPost: PostDTO) => void;
 }
@@ -40,9 +43,18 @@ export default function EditPostPage({ updatePost }: Readonly<EditPostPageProps>
     }
 
     return (
-        <div>
-            <h1>Edit Post</h1>
+        <StyledContainer>
+            <Typography variant="h4" component="h1">Edit Post</Typography>
             <EditPostForm post={postToEdit} updatePost={updatePost} />
-        </div>
+        </StyledContainer>
     );
 }
+
+const StyledContainer = styled(Container)`
+    margin-top: 64px;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+`;
