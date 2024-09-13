@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Post } from "../../../models/Post.tsx";
 import { format } from 'date-fns';
+import defaultImage from '../../../assets/default-image.png';
 
 type PostCardProps = {
     post: Post;
@@ -20,6 +21,7 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
 
     const formattedDate = format(new Date(post.timestamp), 'yyyy-MM-dd');
     const formattedTime = format(new Date(post.timestamp), 'HH:mm');
+    const imageUrl = defaultImage;
 
 
     return (
@@ -28,7 +30,7 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                 <CardMedia
                     component="img"
                     height="140"
-                    image="should change"   // {post.imageUrl}
+                    image={imageUrl}
                     alt={post.title}
                 />
                 <CardContent>
