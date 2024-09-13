@@ -5,6 +5,9 @@ import { format, parseISO } from "date-fns";
 import { PostDTO } from "../../../dto/PostDTO.tsx";
 import { updatePostService } from "../../../services/PostService.tsx";
 
+import { TextField, Button, Box, Typography } from '@mui/material';
+import styled from 'styled-components';
+
 type EditPostFormProps = {
     post: Post;
     updatePost: (postId: string, updatedPost: Post) => void;
@@ -63,39 +66,48 @@ export default function EditPostForm({ post, updatePost }: Readonly<EditPostForm
     };
 
     return (
-        <div>
-            <h2>Edit Post: {formData.title}</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title: </label>
-                    <input id="title" type="text" name="title" defaultValue={formData.title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="content">Content: </label>
-                    <textarea id="content" name="content" defaultValue={formData.content} onChange={handleChange}></textarea>
-                </div>
-                <div>
-                    <label htmlFor="author">Author: </label>
-                    <input id="author" type="text" name="author" defaultValue={formData.author} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="date">Date: </label>
-                    <input id="date" type="date" name="date" defaultValue={formData.date} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="time">Time: </label>
-                    <input id="time" type="time" name="time" defaultValue={formData.time} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="likes">Likes: </label>
-                    <input id="likes" type="number" name="likes" defaultValue={formData.likes} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="dislikes">Dislikes: </label>
-                    <input id="dislikes" type="number" name="dislikes" defaultValue={formData.dislikes} onChange={handleChange} />
-                </div>
-                <button type="submit">Update</button>
-            </form>
-        </div>
+        <StyledForm onSubmit={handleSubmit}>
+            <Typography variant="h5" component="h2">Edit Post: {formData.title}</Typography>
+            <FormField>
+                <TextField label="Title" name="title" value={formData.title} onChange={handleChange} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Content" name="content" value={formData.content} onChange={handleChange} multiline rows={4} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Author" name="author" value={formData.author} onChange={handleChange} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Date" name="date" type="date" value={formData.date} onChange={handleChange} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Time" name="time" type="time" value={formData.time} onChange={handleChange} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Likes" name="likes" type="number" value={formData.likes} onChange={handleChange} fullWidth />
+            </FormField>
+            <FormField>
+                <TextField label="Dislikes" name="dislikes" type="number" value={formData.dislikes} onChange={handleChange} fullWidth />
+            </FormField>
+            <Button type="submit" variant="contained" color="primary">Update</Button>
+        </StyledForm>
     );
 }
+
+const StyledForm = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+`;
+
+const FormField = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+`;
