@@ -6,6 +6,9 @@ import { Post } from "../../../models/Post.tsx";
 import { getPostByIdService } from "../../../services/PostService.tsx";
 import { convertPostDTOToPost } from "../../../util/maper/convertPostDTOToPost.tsx";
 
+import { Container } from '@mui/material';
+import styled from 'styled-components';
+
 type DetailsPostPageProps = {
     deletePost: (postId: string) => void;
 }
@@ -39,9 +42,17 @@ export default function DetailsPostPage({ deletePost }: Readonly<DetailsPostPage
     }
 
     return (
-        <div>
-            <h1>Post detail page</h1>
-            <PostDetail post={post} deletePost={deletePost}/>
-        </div>
+        <StyledContainer>
+            <PostDetail post={post} deletePost={deletePost} />
+        </StyledContainer>
     );
 }
+
+const StyledContainer = styled(Container)`
+    margin-top: 64px;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+`;
