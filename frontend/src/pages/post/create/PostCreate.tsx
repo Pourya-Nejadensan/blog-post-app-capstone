@@ -4,6 +4,9 @@ import { PostDTO } from '../../../dto/PostDTO.tsx';
 import { format, parseISO } from 'date-fns';
 import { Post } from "../../../models/Post.tsx";
 
+import { TextField, Button, Box, Typography } from '@mui/material';
+import styled from 'styled-components';
+
 type PostCreateProps = {
     addNewPost: (newPost: Post) => void;
 };
@@ -47,39 +50,31 @@ export default function PostCreate({ addNewPost }: Readonly<PostCreateProps>) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title:</label>
-                    <input id="title" type="text" name="title" value={formData.title} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="content">Content:</label>
-                    <textarea id="content" name="content" value={formData.content} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="author">Author:</label>
-                    <input id="author" type="text" name="author" value={formData.author} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="date">Date:</label>
-                    <input id="date" type="date" name="date" value={formData.date} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="time">Time:</label>
-                    <input id="time" type="time" name="time" value={formData.time} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="likes">Likes:</label>
-                    <input id="likes" type="number" name="likes" value={formData.likes} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="dislikes">Dislikes:</label>
-                    <input id="dislikes" type="number" name="dislikes" value={formData.dislikes} onChange={handleChange} required />
-                </div>
-                <button type="submit">Create Post</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+        <StyledContainer>
+            <Typography variant="h4" component="h2" align="center">New Post</Typography>
+            <Box component="form" mt={4} onSubmit={handleSubmit}>
+                <TextField fullWidth label="Title" variant="outlined" margin="normal" name="title" value={formData.title} onChange={handleChange} required />
+                <TextField fullWidth label="Author" variant="outlined" margin="normal" name="author" value={formData.author} onChange={handleChange} required />
+                <TextField fullWidth label="Content" variant="outlined" margin="normal" name="content" value={formData.content} onChange={handleChange} required multiline rows={6} />
+                <TextField fullWidth variant="outlined" margin="normal" name="date" value={formData.date} onChange={handleChange} required type="date"  />
+                <TextField fullWidth variant="outlined" margin="normal" name="time" value={formData.time} onChange={handleChange} required type="time" />
+                <TextField fullWidth label="Likes" variant="outlined" margin="normal" name="likes" value={formData.likes} onChange={handleChange} required type="number" />
+                <TextField fullWidth label="Dislikes" variant="outlined" margin="normal" name="dislikes" value={formData.dislikes} onChange={handleChange} required type="number" />
+                <Box mt={2} display="flex" justifyContent="center">
+                    <Button fullWidth variant="contained" color="primary" type="submit">Create</Button>
+                </Box>
+            </Box>
+            {message && <Typography variant="body1" color="error" align="center">{message}</Typography>}
+        </StyledContainer>
     );
 }
+
+const StyledContainer = styled(Box)`
+    width: 100%;
+    max-width: 800px;
+    margin: 32px auto;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
