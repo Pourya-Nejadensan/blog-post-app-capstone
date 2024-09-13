@@ -3,6 +3,9 @@ import { Post } from "../../../models/Post.tsx";
 import { deletePostService } from "../../../services/PostService.tsx";
 import { format } from "date-fns";
 
+import { Button, Typography, Box } from '@mui/material';
+import styled from 'styled-components';
+
 type PostDetailProps = {
     post: Post;
     deletePost: (postId: string) => void;
@@ -37,14 +40,23 @@ export default function PostDetail({ post, deletePost }: Readonly<PostDetailProp
     const formattedTime = format(new Date(post.timestamp), 'HH:mm');
 
     return (
-        <div>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
-            <p><strong>Author:</strong> {post.author}</p>
-            <p><strong>Date:</strong> {formattedDate} <strong>Time:</strong> {formattedTime}</p>
-            <p><strong>Likes:</strong> {post.likes} <strong>Dislikes:</strong> {post.dislikes}</p>
-            <button onClick={ handleEditPostDetail }>Edit</button>
-            <button onClick={() => handleDelete(post.id)}>Delete</button>
-        </div>
+        <StyledContainer>
+            <Typography variant="h3" component="h1">{post.title}</Typography>
+            <Typography variant="subtitle1" component="p">By {post.author} on {formattedDate} at {formattedTime}</Typography>
+            <Typography variant="body1" component="p" mt={10} mb={10} align={"left"} sx={{ wordBreak: 'break-word'}}>{post.content}</Typography>
+            <Box mt={2} display="flex" justifyContent="left">
+                <Button variant="contained" color="primary" onClick={handleEditPostDetail} sx={{ mr: 1 }}>Edit</Button>
+                <Button variant="contained" color="error" onClick={() => handleDelete(post.id)}>Delete</Button>
+            </Box>
+        </StyledContainer>
     );
 }
+
+const StyledContainer = styled(Box)`
+    width: 100%;
+    max-width: 800px;
+    margin: 32px auto;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+`;
