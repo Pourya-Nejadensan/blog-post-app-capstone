@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { createPost } from '../../../services/PostService.tsx';
+import { createPostService } from '../../../services/PostService.tsx';
 import { PostDTO } from '../../../dto/PostDTO.tsx';
-import {format, parseISO} from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import { Post } from "../../../models/Post.tsx";
 
-export default function PostCreate() {
+type PostCreateProps = {
+    addNewPost: (newPost: Post) => void;
+};
+
+export default function PostCreate({ addNewPost }: Readonly<PostCreateProps>) {
+
     const [formData, setFormData] = useState({
         title: '',
         content: '',
@@ -13,6 +19,7 @@ export default function PostCreate() {
         likes: 0,
         dislikes: 0,
     });
+
     const [message, setMessage] = useState<string>('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -30,7 +37,8 @@ export default function PostCreate() {
         const postDTO: PostDTO = { ...rest, timestamp };
 
         try {
-            await createPost(postDTO);
+            const newPost = await createPostService(postDTO);
+            addNewPost(newPost);
             setMessage('Post created successfully');
         } catch (error) {
             console.error('There was an error creating the post!', error);

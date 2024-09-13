@@ -3,7 +3,7 @@ import { PostDTO } from "../dto/PostDTO";
 
 const API_URL = '/api/post';
 
-export const getAllPosts = async () => {
+export const getAllPostsService = async () => {
     try {
         const response = await axios.get(`${API_URL}/all`);
         return response.data;
@@ -13,7 +13,7 @@ export const getAllPosts = async () => {
     }
 };
 
-export const createPost = async (postDTO: PostDTO) => {
+export const createPostService = async (postDTO: PostDTO) => {
     try {
         const response = await axios.post(`${API_URL}/create`, postDTO);
         return response.data;
@@ -23,7 +23,7 @@ export const createPost = async (postDTO: PostDTO) => {
     }
 };
 
-export const deletePost = async (postId: string) => {
+export const deletePostService = async (postId: string) => {
     try {
         await axios.delete(`${API_URL}/delete/${postId}`);
     } catch (error) {
@@ -32,7 +32,7 @@ export const deletePost = async (postId: string) => {
     }
 };
 
-export const updatePost = async (postId: string, postDTO: PostDTO) => {
+export const updatePostService = async (postId: string, postDTO: PostDTO) => {
     try {
         const response = await axios.put(`${API_URL}/update/${postId}`, postDTO);
         return response.data;
@@ -42,7 +42,7 @@ export const updatePost = async (postId: string, postDTO: PostDTO) => {
     }
 };
 
-export const getPostById = async (postId: string) => {
+export const getPostByIdService = async (postId: string) => {
     try {
         const response = await axios.get(`${API_URL}/${postId}`);
         return response.data;

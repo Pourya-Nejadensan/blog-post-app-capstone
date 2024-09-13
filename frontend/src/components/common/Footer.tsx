@@ -11,7 +11,6 @@ export default function Footer() {
     );
 }
 
-
 const FooterContainer = styled(Box)`
     left: 0;
     right: 0;

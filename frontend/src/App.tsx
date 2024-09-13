@@ -1,5 +1,5 @@
 import Layout from './components/Layout';
-import AppRoutes from "./components/common/Routes.tsx";
+import AppRoutes from "./components/common/AppRoutes.tsx";
 
 function App() {
   return (
