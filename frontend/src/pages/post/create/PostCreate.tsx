@@ -61,7 +61,7 @@ export default function PostCreate({ addNewPost }: Readonly<PostCreateProps>) {
                 <TextField fullWidth label="Likes" variant="outlined" margin="normal" name="likes" value={formData.likes} onChange={handleChange} required type="number" />
                 <TextField fullWidth label="Dislikes" variant="outlined" margin="normal" name="dislikes" value={formData.dislikes} onChange={handleChange} required type="number" />
                 <Box mt={2} display="flex" justifyContent="center">
-                    <Button fullWidth variant="contained" color="primary" type="submit">Create</Button>
+                    <Button fullWidth variant="contained" color="error" type="submit">Create</Button>
                 </Box>
             </Box>
             {message && <Typography variant="body1" color="error" align="center">{message}</Typography>}
