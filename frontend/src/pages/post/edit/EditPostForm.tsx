@@ -5,7 +5,7 @@ import { format, parseISO } from "date-fns";
 import { PostDTO } from "../../../dto/PostDTO.tsx";
 import { updatePostService } from "../../../services/PostService.tsx";
 
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import styled from 'styled-components';
 
 type EditPostFormProps = {
@@ -89,12 +89,12 @@ export default function EditPostForm({ post, updatePost }: Readonly<EditPostForm
             <FormField>
                 <TextField label="Dislikes" name="dislikes" type="number" value={formData.dislikes} onChange={handleChange} fullWidth />
             </FormField>
-            <Button type="submit" variant="contained" color="primary">Update</Button>
+            <Button type="submit" variant="contained" color="error">Update</Button>
         </StyledForm>
     );
 }
 
-const StyledForm = styled(Box)`
+const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     gap: 16px;
