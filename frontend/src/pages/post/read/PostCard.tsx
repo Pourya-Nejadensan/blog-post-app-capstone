@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import {Card, CardContent, Typography, CardMedia, Button} from '@mui/material';
-
+import { Card, Typography, CardMedia, Button, CardContent } from '@mui/material'; // Added CardContent import
 import { Link } from 'react-router-dom';
 import { Post } from "../../../models/Post.tsx";
 import { format } from 'date-fns';
@@ -24,7 +23,6 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
     const formattedTime = format(new Date(post.timestamp), 'HH:mm');
     const imageUrl = defaultImage;
 
-
     return (
         <StyledCard>
             <Link to={`/detail-post/${post.id}`} state={post.id}>
@@ -34,7 +32,8 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                     image={imageUrl}
                     alt={post.title}
                 />
-                <CardContent>
+            </Link>
+                <CardContentStyled>
                     <Typography variant="h5" component="div">
                         {post.title}
                     </Typography>
@@ -47,9 +46,9 @@ export default function PostCard({ post, onDelete }: Readonly<PostCardProps>) {
                     <Typography variant="body2" color="text.secondary">
                         Likes: {post.likes} Dislikes: {post.dislikes}
                     </Typography>
-                </CardContent>
-            </Link>
-            <Button variant="contained" color="error" size="small" sx={{ mb: 2, ml: 2, mt: 2}} onClick={() => handleDeletePostCard(post.id)}>Delete</Button>
+                </CardContentStyled>
+
+            <Button variant="contained" color="error" size="small"  onClick={() => handleDeletePostCard(post.id)}>Delete</Button>
         </StyledCard>
     );
 }
@@ -58,4 +57,15 @@ const StyledCard = styled(Card)`
     margin: 16px;
     width: 100%;
     max-width: 600px;
+    height: 300px; /* Set a fixed height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+const CardContentStyled = styled(CardContent)`
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Optional: Add ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+    margin-right: 20px;
 `;
