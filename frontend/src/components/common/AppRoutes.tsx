@@ -8,6 +8,8 @@ import CreatePostPage from "../../pages/post/create/CreatePostPage.tsx";
 import DetailsPostPage from "../../pages/post/detail/DetailsPostPage.tsx";
 import EditPostPage from "../../pages/post/edit/EditPostPage.tsx";
 import { useFetchPosts } from "../../hooks/useFetchPosts.tsx";
+import HomePage from "../../pages/home/HomePage.tsx";
+import LoginPage from "../../pages/login/LoginPage.tsx";
 
 export default function AppRoutes() {
 
@@ -17,7 +19,9 @@ export default function AppRoutes() {
         <Router>
             <Header />
             <Routes>
-                <Route path="/" element={<PostList
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/posts" element={<PostList
                     posts={posts}
                     loading={loading}
                     error={error}
