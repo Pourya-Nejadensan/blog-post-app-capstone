@@ -1,4 +1,4 @@
-package org.blog.post.app.backend.controller;
+package org.blog.post.app.backend.controller.post;
 
 import org.blog.post.app.backend.post.model.Post;
 import org.blog.post.app.backend.post.repository.PostRepository;
@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -86,6 +87,7 @@ class PostControllerIntegrationTest {
 
         // when
         mockMvc.perform(post("/api/post/create")
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(postDTOJson))
 
@@ -116,6 +118,7 @@ class PostControllerIntegrationTest {
 
         // when
         mockMvc.perform(delete("/api/post/delete/{id}", "1")
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "test")))
                         .contentType(MediaType.APPLICATION_JSON))
                 // then
                 .andExpect(status().isOk())
@@ -156,6 +159,7 @@ class PostControllerIntegrationTest {
 
         // when
         mockMvc.perform(put("/api/post/update/{id}", "1")
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "test")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(postDTOJson))
                 // then
