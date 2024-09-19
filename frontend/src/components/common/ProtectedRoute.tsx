@@ -4,7 +4,7 @@ type ProtectedRouteProps = {
     isAuthenticated: boolean;
 }
 
-export default function ProtectedRoute({ isAuthenticated }: ProtectedRouteProps) {
+export default function ProtectedRoute({ isAuthenticated }: Readonly<ProtectedRouteProps>) {
     return (
             isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />
     )
