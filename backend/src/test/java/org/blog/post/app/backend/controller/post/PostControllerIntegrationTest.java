@@ -92,7 +92,7 @@ class PostControllerIntegrationTest {
                         .content(postDTOJson))
 
                 // then
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("My First Post"))
                 .andExpect(jsonPath("$.content").value("This is the content of my first post."))
                 .andExpect(jsonPath("$.author").value("Pourya Nejadensan"))

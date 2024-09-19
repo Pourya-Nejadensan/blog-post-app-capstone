@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.blog.post.app.backend.post.dto.PostDTO;
 import org.blog.post.app.backend.post.model.Post;
 import org.blog.post.app.backend.post.service.impl.PostServiceImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,25 +21,24 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Post> createPost(@RequestBody PostDTO postDTO) {
-        return new ResponseEntity<>(postServiceImpl.createPost(postDTO),
-                HttpStatus.CREATED);
+    public Post createPost(@RequestBody PostDTO postDTO) {
+        return postServiceImpl.createPost(postDTO);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletePostById(@PathVariable(name = "id") String id) {
+    public String deletePostById(@PathVariable(name = "id") String id) {
         postServiceImpl.deletePostById(id);
 
-        return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
+        return "Post deleted successfully";
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<PostDTO> updatePostById(@PathVariable(name = "id") String id, @RequestBody PostDTO postDTO) {
-        return new ResponseEntity<>(postServiceImpl.updatePostById(id, postDTO), HttpStatus.OK);
+    public PostDTO updatePostById(@PathVariable(name = "id") String id, @RequestBody PostDTO postDTO) {
+        return postServiceImpl.updatePostById(id, postDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPostById(@PathVariable(name = "id") String id) {
-        return new ResponseEntity<>(postServiceImpl.getPostById(id), HttpStatus.OK);
+    public PostDTO getPostById(@PathVariable(name = "id") String id) {
+        return postServiceImpl.getPostById(id);
     }
 }
