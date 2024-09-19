@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -18,8 +19,9 @@ class UserControllerIntegrationTest {
 
     @Test
     void testGetMe_withLoggedInUser_expectUsername() throws Exception {
-        mockMvc.perform(get("/api/auth/me"))
+        mockMvc.perform(get("/api/auth/me")
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "test"))))
                 .andExpect(status().isOk())
-                .andExpect(content().string("?"));
+                .andExpect(content().string("test"));
     }
 }
