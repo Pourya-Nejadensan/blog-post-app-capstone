@@ -1,4 +1,4 @@
-package org.blog.post.app.backend.controller;
+package org.blog.post.app.backend.controller.post;
 
 import org.blog.post.app.backend.post.model.Post;
 import org.blog.post.app.backend.post.repository.PostRepository;
