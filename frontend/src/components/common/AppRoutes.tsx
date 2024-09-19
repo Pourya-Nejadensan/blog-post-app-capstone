@@ -10,17 +10,30 @@ import EditPostPage from "../../pages/post/edit/EditPostPage.tsx";
 import { useFetchPosts } from "../../hooks/useFetchPosts.tsx";
 import HomePage from "../../pages/home/HomePage.tsx";
 import LoginPage from "../../pages/login/LoginPage.tsx";
+import { useAuth } from "../../hooks/useAuth.tsx";
 
 export default function AppRoutes() {
 
     const { posts, loading, error, addNewPost, updatePost, deletePost} = useFetchPosts();
+    const { isAuthenticated, handleLogin, handleLogout, checkAuth } = useAuth();
 
     return (
         <Router>
-            <Header />
+            <Header
+                isAuthenticated={isAuthenticated}
+                handleLogout={handleLogout}
+                checkAuth={checkAuth}
+            />
             <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<HomePage
+                    isAuthenticated={isAuthenticated}
+                />} />
+                <Route path="/login" element={<LoginPage
+                    isAuthenticated={isAuthenticated}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                    checkAuth={checkAuth}
+                />} />
                 <Route path="/posts" element={<PostList
                     posts={posts}
                     loading={loading}
