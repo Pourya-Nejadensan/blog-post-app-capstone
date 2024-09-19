@@ -11,6 +11,7 @@ import { useFetchPosts } from "../../hooks/useFetchPosts.tsx";
 import HomePage from "../../pages/home/HomePage.tsx";
 import LoginPage from "../../pages/login/LoginPage.tsx";
 import { useAuth } from "../../hooks/useAuth.tsx";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
 export default function AppRoutes() {
 
@@ -34,23 +35,26 @@ export default function AppRoutes() {
                     handleLogout={handleLogout}
                     checkAuth={checkAuth}
                 />} />
-                <Route path="/posts" element={<PostList
-                    posts={posts}
-                    loading={loading}
-                    error={error}
-                    deletePost={deletePost}
-                />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/create-post" element={<CreatePostPage
-                    addNewPost={addNewPost}
-                />} />
-                <Route path="/detail-post/:postId" element={<DetailsPostPage
-                    deletePost={deletePost}
-                />} />
-                <Route path="/edit-post/:postId" element={<EditPostPage
-                    updatePost={updatePost}
-                />} />
+
+                <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
+                    <Route path="/posts" element={<PostList
+                        posts={posts}
+                        loading={loading}
+                        error={error}
+                        deletePost={deletePost}
+                    />} />
+                    <Route path="/create-post" element={<CreatePostPage
+                        addNewPost={addNewPost}
+                    />} />
+                    <Route path="/detail-post/:postId" element={<DetailsPostPage
+                        deletePost={deletePost}
+                    />} />
+                    <Route path="/edit-post/:postId" element={<EditPostPage
+                        updatePost={updatePost}
+                    />} />
+                </Route>
             </Routes>
             <Footer />
         </Router>
