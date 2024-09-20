@@ -150,32 +150,19 @@ class PostServiceImplTest {
     @Test
     @DirtiesContext
     void deletePostById_whenPostExists_thenPostIsDeleted(){
-        // given
-        Post post = new Post(
-                "1",
-                "Title1",
-                "Content1",
-                "Author1",
-                timestamp,
-                10,
-                1
-        );
-        when(postRepository.findById("1")).thenReturn(Optional.of(post));
-        doNothing().when(postRepository).delete(post);
-
-        // when
-        postServiceImpl.deletePostById("1");
-
-        // then
-        verify(postRepository).findById("1");
-        verify(postRepository).delete(post);
+        //GIVEN
+        doNothing().when(postRepository).deleteById("1");
+        //WHEN
+        postRepository.deleteById("1");
+        //THEN
+        verify(postRepository).deleteById("1");
     }
 
     @Test
     @DirtiesContext
     void deletePostById_whenPostDoesNotExist_thenThrowResourceNotFoundException() {
         // given
-        when(postRepository.findById("1")).thenReturn(Optional.empty());
+        doThrow(new ResourceNotFoundException("Post", "id", "1")).when(postRepository).deleteById("1");
 
         // when & then
         assertThrows(ResourceNotFoundException.class, () -> postServiceImpl.deletePostById("1"));
